@@ -1,54 +1,58 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
   title: Medicines API
-  description: "
-  # Medicine API #
-  
-  This API is used to manage information about medicines.
-  "
+  description: |2-
+     # Medicine API #
+    This API is used to manage information about medicines. 
   version: 1.0.0
-host: localhost:8080
+host: 'localhost:8080'
 schemes:
   - http
   - https
 tags:
-- name: "medicines"
-  description: "API For medicine management."
+  - name: medicines
+    description: API For medicine management.
 paths:
   /medicines:
     get:
       summary: Returns a list of medicines.
-      tags: 
-        - "medicines"
+      tags:
+        - medicines
       produces:
         - application/hal+json
       responses:
-        200:
+        '200':
           description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Medicine'
     post:
       summary: Creates new medicine
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Medicine data"
-        required: true
-        schema:
-          $ref: "#/definitions/Medicine"
-      tags: 
-        - "medicines"
+        - in: body
+          name: body
+          description: Medicine data
+          required: true
+          schema:
+            $ref: '#/definitions/Medicine'
+      tags:
+        - medicines
       produces:
         - application/hal+json
       consumes:
         - application/hal+json
         - application/json
       responses:
-        201:
+        '201':
           description: Created
-  /medicines/{id}:
+          schema:
+            $ref: '#/definitions/Medicine'
+  '/medicines/{id}':
     get:
       summary: Returns medicine by id
-      tags: 
-        - "medicines"
+      tags:
+        - medicines
       parameters:
         - in: path
           name: id
@@ -59,14 +63,16 @@ paths:
       produces:
         - application/hal+json
       responses:
-        200:
+        '200':
           description: OK
-        404:
+          schema:
+            $ref: '#/definitions/Medicine'
+        '404':
           description: Not Found
     put:
       summary: Repalace medicine
-      tags: 
-        - "medicines"
+      tags:
+        - medicines
       parameters:
         - in: path
           name: id
@@ -74,26 +80,30 @@ paths:
           type: integer
           minimum: 1
           description: Medicine id
-        - in: "body"
-          name: "body"
-          description: "Medicine data"
+        - in: body
+          name: body
+          description: Medicine data
           required: true
           schema:
-            $ref: "#/definitions/Medicine"
-      produces: 
+            $ref: '#/definitions/Medicine'
+      produces:
         - application/hal+json
-      consumes: 
+      consumes:
         - application/hal+json
         - application/json
       responses:
-        200:
+        '200':
           description: Ok
-        201:
+          schema:
+            $ref: '#/definitions/Medicine'
+        '201':
           description: Created
+          schema:
+            $ref: '#/definitions/Medicine'
     patch:
       summary: Partially updating the medicine state
-      tags: 
-        - "medicines"
+      tags:
+        - medicines
       parameters:
         - in: path
           name: id
@@ -101,26 +111,28 @@ paths:
           type: integer
           minimum: 1
           description: Medicine id
-        - in: "body"
-          name: "body"
-          description: "Medicine data"
+        - in: body
+          name: body
+          description: Medicine data
           required: true
           schema:
-            $ref: "#/definitions/Medicine"
-      produces: 
+            $ref: '#/definitions/Medicine'
+      produces:
         - application/hal+json
-      consumes: 
+      consumes:
         - application/hal+json
         - application/json
       responses:
-        200:
+        '200':
           description: Ok
-        201:
-          description: Created
+          schema:
+            $ref: '#/definitions/Medicine'
+        '404':
+          description: Not Found
     delete:
       summary: Delete medicine by id
-      tags: 
-        - "medicines"
+      tags:
+        - medicines
       parameters:
         - in: path
           name: id
@@ -128,21 +140,20 @@ paths:
           type: integer
           minimum: 1
           description: Medicine id
-      produces: 
+      produces:
         - application/hal+json
       responses:
-        204:
+        '204':
           description: No Content
-        404:
+        '404':
           description: Not Found
 definitions:
   Medicine:
-    type: "object"
+    type: object
     properties:
       name:
-        type: "string"
+        type: string
       price:
-        type: "number"
+        type: number
       type:
-        type: "string"
-        
+        type: string
