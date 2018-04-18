@@ -152,10 +152,11 @@ definitions:
     type: object
     properties:
       id:
-        type: number
+        type: integer
       name:
         type: string
       price:
         type: number
+        format: double
       type:
         type: string
